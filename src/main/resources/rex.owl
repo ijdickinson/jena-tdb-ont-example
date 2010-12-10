@@ -1,0 +1,488 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY rex "http://www.basistech.com/ontologies/2010/6/rex.owl#" >
+]>
+
+
+<rdf:RDF xmlns="http://www.basistech.com/ontologies/2010/6/rex.owl#"
+     xml:base="http://www.basistech.com/ontologies/2010/6/rex.owl"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:rex="http://www.basistech.com/ontologies/2010/6/rex.owl#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <owl:Ontology rdf:about="http://www.basistech.com/ontologies/2010/6/rex.owl">
+        <rdfs:comment xml:lang="en">An ontology for entity references as extracted by REX.</rdfs:comment>
+        <owl:imports rdf:resource="http://www.w3.org/2002/07/owl"/>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <owl:AnnotationProperty rdf:about="&rdfs;comment"/>
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.basistech.com/ontologies/2010/6/rex.owl#corefLink -->
+
+    <owl:ObjectProperty rdf:about="&rex;corefLink">
+        <rdfs:subPropertyOf rdf:resource="&owl;sameAs"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.basistech.com/ontologies/2010/6/rex.owl#crossdocCorefLink -->
+
+    <owl:ObjectProperty rdf:about="&rex;crossdocCorefLink">
+        <rdfs:subPropertyOf rdf:resource="&rex;corefLink"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.basistech.com/ontologies/2010/6/rex.owl#indocCorefLink -->
+
+    <owl:ObjectProperty rdf:about="&rex;indocCorefLink">
+        <rdfs:subPropertyOf rdf:resource="&rex;corefLink"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/2002/07/owl#sameAs -->
+
+    <owl:ObjectProperty rdf:about="&owl;sameAs"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.basistech.com/ontologies/2010/6/rex.owl#hasContainingDocument -->
+
+    <owl:DatatypeProperty rdf:about="&rex;hasContainingDocument">
+        <rdfs:comment xml:lang="en">A reference to the URI of the document where something was discovered.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&owl;topDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.basistech.com/ontologies/2010/6/rex.owl#hasCustomEntityType -->
+
+    <owl:DatatypeProperty rdf:about="&rex;hasCustomEntityType">
+        <rdfs:comment rdf:datatype="&xsd;string">This property is set on entity references that are tagged with a user-defined type.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&owl;topDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.basistech.com/ontologies/2010/6/rex.owl#hasEntityDetectionSource -->
+
+    <owl:DatatypeProperty rdf:about="&rex;hasEntityDetectionSource">
+        <rdfs:comment rdf:datatype="&xsd;string">The source of the reference.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&owl;topDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.basistech.com/ontologies/2010/6/rex.owl#hasNormalizedText -->
+
+    <owl:DatatypeProperty rdf:about="&rex;hasNormalizedText">
+        <rdfs:comment rdf:datatype="&xsd;string">Normalized text of an entity reference</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&owl;topDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.basistech.com/ontologies/2010/6/rex.owl#hasOriginalText -->
+
+    <owl:DatatypeProperty rdf:about="&rex;hasOriginalText">
+        <rdfs:comment rdf:datatype="&xsd;string">The original text of a reference.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&owl;topDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.w3.org/2002/07/owl#topDataProperty -->
+
+    <owl:DatatypeProperty rdf:about="&owl;topDataProperty"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.basistech.com/ontologies/2010/6/rex.owl#CreditCardNumber -->
+
+    <owl:Class rdf:about="&rex;CreditCardNumber">
+        <rdfs:subClassOf rdf:resource="&rex;Identifier"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.basistech.com/ontologies/2010/6/rex.owl#Date -->
+
+    <owl:Class rdf:about="&rex;Date">
+        <rdfs:subClassOf rdf:resource="&rex;Temporal"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.basistech.com/ontologies/2010/6/rex.owl#Distance -->
+
+    <owl:Class rdf:about="&rex;Distance">
+        <rdfs:subClassOf rdf:resource="&rex;Quantity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.basistech.com/ontologies/2010/6/rex.owl#DomainName -->
+
+    <owl:Class rdf:about="&rex;DomainName">
+        <rdfs:subClassOf rdf:resource="&rex;Identifier"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.basistech.com/ontologies/2010/6/rex.owl#Email -->
+
+    <owl:Class rdf:about="&rex;Email">
+        <rdfs:subClassOf rdf:resource="&rex;Identifier"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.basistech.com/ontologies/2010/6/rex.owl#EntityReference -->
+
+    <owl:Class rdf:about="&rex;EntityReference">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&rex;hasContainingDocument"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onDataRange rdf:resource="&xsd;string"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&rex;hasEntityDetectionSource"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onDataRange rdf:resource="&xsd;string"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&rex;hasOriginalText"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onDataRange rdf:resource="&xsd;string"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&rex;hasCustomEntityType"/>
+                <owl:maxQualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxQualifiedCardinality>
+                <owl:onDataRange rdf:resource="&xsd;string"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&rex;hasNormalizedText"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onDataRange rdf:resource="&xsd;string"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.basistech.com/ontologies/2010/6/rex.owl#Facility -->
+
+    <owl:Class rdf:about="&rex;Facility">
+        <rdfs:subClassOf rdf:resource="&rex;EntityReference"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.basistech.com/ontologies/2010/6/rex.owl#FaxNumber -->
+
+    <owl:Class rdf:about="&rex;FaxNumber">
+        <rdfs:subClassOf rdf:resource="&rex;Identifier"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.basistech.com/ontologies/2010/6/rex.owl#GeoLocation -->
+
+    <owl:Class rdf:about="&rex;GeoLocation">
+        <rdfs:subClassOf rdf:resource="&rex;Identifier"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.basistech.com/ontologies/2010/6/rex.owl#IPAddress -->
+
+    <owl:Class rdf:about="&rex;IPAddress">
+        <rdfs:subClassOf rdf:resource="&rex;Identifier"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.basistech.com/ontologies/2010/6/rex.owl#Identifier -->
+
+    <owl:Class rdf:about="&rex;Identifier">
+        <rdfs:subClassOf rdf:resource="&rex;EntityReference"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.basistech.com/ontologies/2010/6/rex.owl#LatitudeLongitude -->
+
+    <owl:Class rdf:about="&rex;LatitudeLongitude">
+        <rdfs:subClassOf rdf:resource="&rex;GeoLocation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.basistech.com/ontologies/2010/6/rex.owl#Location -->
+
+    <owl:Class rdf:about="&rex;Location">
+        <rdfs:subClassOf rdf:resource="&rex;EntityReference"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.basistech.com/ontologies/2010/6/rex.owl#Money -->
+
+    <owl:Class rdf:about="&rex;Money">
+        <rdfs:subClassOf rdf:resource="&rex;Quantity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.basistech.com/ontologies/2010/6/rex.owl#Nationality -->
+
+    <owl:Class rdf:about="&rex;Nationality">
+        <rdfs:subClassOf rdf:resource="&rex;EntityReference"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.basistech.com/ontologies/2010/6/rex.owl#Number -->
+
+    <owl:Class rdf:about="&rex;Number">
+        <rdfs:subClassOf rdf:resource="&rex;Quantity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.basistech.com/ontologies/2010/6/rex.owl#Organization -->
+
+    <owl:Class rdf:about="&rex;Organization">
+        <rdfs:subClassOf rdf:resource="&rex;EntityReference"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.basistech.com/ontologies/2010/6/rex.owl#Percent -->
+
+    <owl:Class rdf:about="&rex;Percent">
+        <rdfs:subClassOf rdf:resource="&rex;Quantity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.basistech.com/ontologies/2010/6/rex.owl#Person -->
+
+    <owl:Class rdf:about="&rex;Person">
+        <rdfs:subClassOf rdf:resource="&rex;EntityReference"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.basistech.com/ontologies/2010/6/rex.owl#PersonalIdNumber -->
+
+    <owl:Class rdf:about="&rex;PersonalIdNumber">
+        <rdfs:subClassOf rdf:resource="&rex;Identifier"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.basistech.com/ontologies/2010/6/rex.owl#Quantity -->
+
+    <owl:Class rdf:about="&rex;Quantity">
+        <rdfs:subClassOf rdf:resource="&rex;EntityReference"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.basistech.com/ontologies/2010/6/rex.owl#Religion -->
+
+    <owl:Class rdf:about="&rex;Religion">
+        <rdfs:subClassOf rdf:resource="&rex;EntityReference"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.basistech.com/ontologies/2010/6/rex.owl#TelephoneNumber -->
+
+    <owl:Class rdf:about="&rex;TelephoneNumber">
+        <rdfs:subClassOf rdf:resource="&rex;Identifier"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.basistech.com/ontologies/2010/6/rex.owl#Temporal -->
+
+    <owl:Class rdf:about="&rex;Temporal">
+        <rdfs:subClassOf rdf:resource="&rex;EntityReference"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.basistech.com/ontologies/2010/6/rex.owl#Time -->
+
+    <owl:Class rdf:about="&rex;Time">
+        <rdfs:subClassOf rdf:resource="&rex;Temporal"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.basistech.com/ontologies/2010/6/rex.owl#URL -->
+
+    <owl:Class rdf:about="&rex;URL">
+        <rdfs:subClassOf rdf:resource="&rex;Identifier"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.basistech.com/ontologies/2010/6/rex.owl#USA_SSN -->
+
+    <owl:Class rdf:about="&rex;USA_SSN">
+        <rdfs:subClassOf rdf:resource="&rex;PersonalIdNumber"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.basistech.com/ontologies/2010/6/rex.owl#UTM -->
+
+    <owl:Class rdf:about="&rex;UTM">
+        <rdfs:subClassOf rdf:resource="&rex;GeoLocation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.basistech.com/ontologies/2010/6/rex.owl#Vehicle -->
+
+    <owl:Class rdf:about="&rex;Vehicle">
+        <rdfs:subClassOf rdf:resource="&rex;EntityReference"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.basistech.com/ontologies/2010/6/rex.owl#Weapon -->
+
+    <owl:Class rdf:about="&rex;Weapon">
+        <rdfs:subClassOf rdf:resource="&rex;EntityReference"/>
+    </owl:Class>
+    <rdf:Description>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&rex;hasNormalizedText"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onDataRange rdf:resource="&xsd;string"/>
+            </owl:Restriction>
+        </rdf:type>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&rex;hasOriginalText"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onDataRange rdf:resource="&xsd;string"/>
+            </owl:Restriction>
+        </rdf:type>
+    </rdf:Description>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="&rex;CreditCardNumber"/>
+            <rdf:Description rdf:about="&rex;Date"/>
+            <rdf:Description rdf:about="&rex;Distance"/>
+            <rdf:Description rdf:about="&rex;DomainName"/>
+            <rdf:Description rdf:about="&rex;Email"/>
+            <rdf:Description rdf:about="&rex;Facility"/>
+            <rdf:Description rdf:about="&rex;FaxNumber"/>
+            <rdf:Description rdf:about="&rex;GeoLocation"/>
+            <rdf:Description rdf:about="&rex;IPAddress"/>
+            <rdf:Description rdf:about="&rex;Identifier"/>
+            <rdf:Description rdf:about="&rex;LatitudeLongitude"/>
+            <rdf:Description rdf:about="&rex;Location"/>
+            <rdf:Description rdf:about="&rex;Money"/>
+            <rdf:Description rdf:about="&rex;Nationality"/>
+            <rdf:Description rdf:about="&rex;Organization"/>
+            <rdf:Description rdf:about="&rex;Percent"/>
+            <rdf:Description rdf:about="&rex;Person"/>
+            <rdf:Description rdf:about="&rex;PersonalIdNumber"/>
+            <rdf:Description rdf:about="&rex;Quantity"/>
+            <rdf:Description rdf:about="&rex;Religion"/>
+            <rdf:Description rdf:about="&rex;TelephoneNumber"/>
+            <rdf:Description rdf:about="&rex;Temporal"/>
+            <rdf:Description rdf:about="&rex;URL"/>
+            <rdf:Description rdf:about="&rex;USA_SSN"/>
+            <rdf:Description rdf:about="&rex;UTM"/>
+            <rdf:Description rdf:about="&rex;Vehicle"/>
+            <rdf:Description rdf:about="&rex;Weapon"/>
+        </owl:members>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.0.0.1469) http://owlapi.sourceforge.net -->
+
