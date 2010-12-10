@@ -6,6 +6,9 @@
     <version>1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>Example of combining Jena and TDB with an onology</name>
+    <build>
+      <defaultGoal>package</defaultGoal>
+    </build>
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -26,6 +29,13 @@
             <groupId>com.hp.hpl.jena</groupId>
             <artifactId>tdb</artifactId>
             <version>0.8.7</version>
+        </dependency>
+        <dependency>
+        	<groupId>commons-io</groupId>
+        	<artifactId>commons-io</artifactId>
+        	<version>1.4</version>
+        	<type>jar</type>
+        	<scope>compile</scope>
         </dependency>
     </dependencies>
 </project>

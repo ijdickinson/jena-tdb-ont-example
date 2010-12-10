@@ -58,7 +58,8 @@ public class JenaStore {
          * See if the ontology is loaded.
          */
         loadOntologyIfNeeded();
-        queryModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_RULE_INF);
+        // create model to query against.
+        queryModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_RULE_INF, dataset.getDefaultModel());
     }
 
     private void loadOntologyIfNeeded() {
