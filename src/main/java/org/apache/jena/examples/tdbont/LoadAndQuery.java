@@ -61,6 +61,7 @@ public final class LoadAndQuery {
         for (String urn : urns) {
             System.out.println(urn);
         }
+        System.out.println("----");
         store.shutdown();
     }
 

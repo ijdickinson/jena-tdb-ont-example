@@ -31,8 +31,12 @@ import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Resource;
+import com.hp.hpl.jena.sparql.core.DatasetImpl;
+import com.hp.hpl.jena.sparql.core.Quad;
 import com.hp.hpl.jena.tdb.TDB;
 import com.hp.hpl.jena.tdb.TDBFactory;
+import com.hp.hpl.jena.tdb.store.DatasetGraphTDB;
+import com.hp.hpl.jena.tdb.store.GraphNamedTDB;
 
 /**
  * This class manages a TDB store, accepting new graphs and managing queries.
@@ -42,10 +46,12 @@ public class JenaStore {
     private static final String ONTOLOGY_CLASS_PATH = "/rex.owl";
     private File tdbStoreLocation;
     private Dataset dataset;
-    private OntModel queryModel;
+    private Model schemaModel;
+    private DatasetGraphTDB dsGraph;
 
     public void addGraph(String graphUri, InputStream rdfStream) {
         Model baseModel = dataset.getNamedModel(graphUri);
+        baseModel.removeAll();
         OntModel m = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM, baseModel);
         m.read(rdfStream, graphUri, "RDF/XML-ABBREV");
         m.commit();
@@ -53,28 +59,27 @@ public class JenaStore {
 
     public void initialize() {
         TDB.getContext().set(TDB.symUnionDefaultGraph, "true");
-        dataset = TDBFactory.createDataset(tdbStoreLocation.getAbsolutePath());
-        /*
-         * See if the ontology is loaded.
-         */
-        loadOntologyIfNeeded();
-        // create model to query against.
-        queryModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_RULE_INF, dataset.getDefaultModel());
+        dsGraph = TDBFactory.createDatasetGraph(tdbStoreLocation.getAbsolutePath());
+        dataset = new DatasetImpl(dsGraph);
+        schemaModel = loadOntology();
     }
 
-    private void loadOntologyIfNeeded() {
-        if (!dataset.containsNamedModel(Rex.NS)) {
-            Model baseModel = dataset.getNamedModel(ONTOLOGY_URI);
-            OntModel m = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM, baseModel);
-            m.read(JenaStore.class.getResourceAsStream(ONTOLOGY_CLASS_PATH), ONTOLOGY_URI);
-            m.commit();
-        }
+    private Model loadOntology() {
+        addGraph(ONTOLOGY_URI, JenaStore.class.getResourceAsStream(ONTOLOGY_CLASS_PATH));
+        GraphNamedTDB graph = new GraphNamedTDB(dsGraph, Quad.unionGraph);
+        Model dsModel = ModelFactory.createModelForGraph(graph);
+        OntModel m = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_RULE_INF, dsModel); 
+        return m;
+    }
+    
+    public Dataset getDataset() {
+        return dataset;
     }
 
     public List<String> resourcesThatMatchQuery(String queryString, String queryVar) {
         List<String> results = new ArrayList<String>();
         Query query = QueryFactory.create(queryString);
-        QueryExecution qexec = QueryExecutionFactory.create(query, queryModel);
+        QueryExecution qexec = QueryExecutionFactory.create(query, schemaModel);
         try {
             ResultSet queryResults = qexec.execSelect();
             while (queryResults.hasNext()) {
