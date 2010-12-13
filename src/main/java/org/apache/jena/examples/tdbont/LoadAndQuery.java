@@ -19,50 +19,74 @@
 
 package org.apache.jena.examples.tdbont;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
+import com.hp.hpl.jena.ontology.OntModel;
+import com.hp.hpl.jena.ontology.OntModelSpec;
+import com.hp.hpl.jena.query.*;
+import com.hp.hpl.jena.rdf.model.*;
+import com.hp.hpl.jena.tdb.TDB;
+import com.hp.hpl.jena.tdb.TDBFactory;
 
 /**
- * 
+ *
  */
 public final class LoadAndQuery {
-    private LoadAndQuery() {
-        //
-    }
+    public static final String STORE = "target/tdb";
+
+    public static final String UNION_GRAPH = "urn:x-arq:UnionGraph";
 
     public static void main(String[] args) {
-        JenaStore store = new JenaStore();
-        File storeFile = new File("target/store");
-        try {
-            FileUtils.deleteDirectory(storeFile);
-        } catch (IOException e) {
-            System.err.println("Failed to delete existing store " + storeFile.getAbsolutePath());
-            return;
-        }
-        store.setTdbStoreLocation(storeFile);
-        store.initialize();
-        InputStream someRdf = LoadAndQuery.class.getResourceAsStream("/misc.rdf");
-        store.addGraph("urn:test-graph", someRdf);
-        IOUtils.closeQuietly(someRdf);
-        String query = MessageFormat.format("SELECT '?x "
-                                            + " from <urn:x-arq:UnionGraph>"
-                                            + " where "
-                                            + "{ ?x <'{0}'>' \"{1}\"' }'",
-                                            Rex.hasOriginalText,
-                                            "Fredrick Chopin");
+        // the base dataset
+        TDB.getContext().set( TDB.symUnionDefaultGraph, true );
+        Dataset dataset = TDBFactory.createDataset( STORE ) ;
+
+        // now create a reasoning model using this base
+        OntModel m = ModelFactory.createOntologyModel( OntModelSpec.OWL_MEM_MICRO_RULE_INF, dataset.getNamedModel( UNION_GRAPH ) );
+
+        String query = MessageFormat.format( "SELECT ?x  where '{' ?x <{0}> \"{1}\" '}'",
+                                             Rex.hasOriginalText,
+                                             "Fredrick Chopin");
+
+        // Report results
         System.out.println(query);
-        List<String> urns = store.resourcesThatMatchQuery(query, "x");
-        for (String urn : urns) {
-            System.out.println(urn);
-        }
         System.out.println("----");
-        store.shutdown();
+
+        List<Resource> results = resourcesThatMatchQuery( query, "x", m );
+        for (Resource r: results) {
+            System.out.println( r );
+        }
+
+        System.out.println("----");
     }
+
+    /**
+     * Execute the given query against the given model, and return a list of the resources
+     * which are the values of the bound variable <code>queryVar</code>
+     *
+     * @param queryString SPARQL query string
+     * @param queryVar Result variable to extract
+     * @param m Model to query
+     * @return List of resources matching the query. Non-null, but may be empty
+     */
+    public static List<Resource> resourcesThatMatchQuery( String queryString, String queryVar, Model m ) {
+        List<Resource> results = new ArrayList<Resource>();
+
+        QueryExecution qexec = QueryExecutionFactory.create( queryString, m );
+        try {
+            ResultSet queryResults = qexec.execSelect();
+            while (queryResults.hasNext()) {
+                QuerySolution soln = queryResults.nextSolution();
+                results.add( soln.getResource(queryVar) );
+            }
+        }
+        finally {
+            qexec.close();
+        }
+        return results;
+    }
+
 
 }

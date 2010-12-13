@@ -1,0 +1,27 @@
+#!/bin/bash
+# Simple shell-script to set up the tdbont example
+# Requires environment variable $TDBROOT to be set, and
+# $TDBROOT/bin to be on the $PATH for the shell
+
+# Preconditions
+[ -n "${TDBROOT+1}" ] || { echo "Please ensure the TDBROOT environment variable is correctly set" ; exit 1 ; }
+command -v tdbloader >/dev/null || { echo "tdbloader does not appear to be on the path for this shell" ; echo "Please ensure \$PATH contains \$TDBROOT/bin" ; exit 1; }
+
+# handy constants
+data=target/tdb
+source=src/main/resources
+
+# Create the data directory and ensure it's empty
+mkdir -p $data
+rm -f $data/*
+
+# load the source data and ontology as separate named graphs
+tdbloader --loc=$data --graph=http://example.org/tdb/data     $source/misc.rdf
+tdbloader --loc=$data --graph=http://example.org/tdb/ontology $source/rex.owl
+
+# Generate the stats.opt file - not terribly helpful for named graphs, but
+# avoids a warning from TDB
+tdbstats --loc=$data > stats.opt
+mv stats.opt $data
+
+
